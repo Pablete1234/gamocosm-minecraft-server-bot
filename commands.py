@@ -43,24 +43,22 @@ class Diagnostic(Category):
         pending = raw_response['status']
         domain = raw_response['domain']
         ip = raw_response['ip']
-        response = f"Physical server: {pserver}\n" \
-            f"Minecraft: {minecraft}\n" \
-            f"Pending operations: {pending}\n" \
-            f"Server hostname: {domain}\n" \
-            f"Server ip: {ip}\n"
+        response = f"Physical practice server: {pserver}\n" \
+            f"Minecraft PGM server: {minecraft}\n" \
+            f"Pending operations: {pending}\n"
         await channel.send(response)
         logging.info(f"'{ctx.command}' command called by {ctx.author}. Response was '{response}'")
 
 
 class DOServer(Category):
-    """Control the DO server"""
+    """Control the practice server"""
 
     def __init__(self, client, discord_channel, api):
         Category.__init__(self, client, discord_channel, api)
 
     @commands.command()
     async def start(self, ctx):
-        """Starts the DigitalOcean VPS"""
+        """Starts the practice server"""
         channel = self.client.get_channel(self.discord_channel)
         response = apiErrorHandler(self.api.start())
         await channel.send(response)
@@ -70,7 +68,7 @@ class DOServer(Category):
 
     @commands.command()
     async def stop(self, ctx):
-        """Stops the DigitalOcean VPS"""
+        """Stops the practice server"""
         channel = self.client.get_channel(self.discord_channel)
         response = apiErrorHandler(self.api.stop())
         await channel.send(response)
@@ -78,7 +76,7 @@ class DOServer(Category):
 
     @commands.command()
     async def reboot(self, ctx):
-        """Reboots the DigitalOcean VPS"""
+        """Reboots the practice server"""
         channel = self.client.get_channel(self.discord_channel)
         response = apiErrorHandler(self.api.reboot())
         await channel.send(response)
@@ -86,14 +84,14 @@ class DOServer(Category):
 
 
 class Minecraft(Category):
-    """Control the Minecraft server"""
+    """Control the Minecraft PGM server"""
 
     def __init__(self, client, discord_channel, api):
         Category.__init__(self, client, discord_channel, api)
 
     @commands.command()
     async def pause(self, ctx):
-        """Stops the Minecraft Server"""
+        """Stops the PGM Server"""
         channel = self.client.get_channel(self.discord_channel)
         response = apiErrorHandler(self.api.pause())
         await channel.send(response)
@@ -101,24 +99,8 @@ class Minecraft(Category):
 
     @commands.command()
     async def resume(self, ctx):
-        """Starts the Minecraft server"""
+        """Starts the PGM server"""
         channel = self.client.get_channel(self.discord_channel)
         response = apiErrorHandler(self.api.resume())
-        await channel.send(response)
-        logging.info(f"'{ctx.command}' command called by {ctx.author}. Response was '{response}'")
-
-    @commands.command()
-    async def backup(self, ctx):
-        """Remotely backups the world on the Server"""
-        channel = self.client.get_channel(self.discord_channel)
-        response = apiErrorHandler(self.api.backup())
-        await channel.send(response)
-        logging.info(f"'{ctx.command}' command called by {ctx.author}. Response was '{response}'")
-
-    @commands.command()
-    async def download(self, ctx):
-        """Grabs a local download link for the world file"""
-        channel = self.client.get_channel(self.discord_channel)
-        response = apiErrorHandler(self.api.download())
         await channel.send(response)
         logging.info(f"'{ctx.command}' command called by {ctx.author}. Response was '{response}'")
